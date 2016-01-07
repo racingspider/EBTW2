@@ -11,6 +11,7 @@ public class OverlandWaypointModel {
 	public ewaypointType iconRequirement = ewaypointType.waypointBoots; // the default
 	public bool reached = false;
 	public bool passed = false; // reached true, passed false = current waypoint
+	public bool beyondNextCamp = false;
 
 }
 
@@ -37,6 +38,8 @@ public class OverlandTileModel {
 				waypoint.iconRequirement = ewaypointType.waypointMaps;
 			}
 
+
+
 			if (index == 3){
 				waypoint.iconRequirement = ewaypointType.waypointBlades;
 			}
@@ -52,6 +55,11 @@ public class OverlandTileModel {
 			if (index == 23){
 				waypoint.waypointType = ewaypointType.waypointFinal;
 			}
+
+			if (index > 8){
+				waypoint.beyondNextCamp = true;
+			}
+
 
 			waypoints.Add(waypoint);
 		}

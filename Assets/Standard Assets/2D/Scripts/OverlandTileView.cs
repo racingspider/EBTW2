@@ -5,6 +5,7 @@ using System.Collections;
 public class OverlandTileView : MonoBehaviour {
 
 	public OverlandTileModel tileModel = new OverlandTileModel();
+	
 
 
 	// Use this for initialization

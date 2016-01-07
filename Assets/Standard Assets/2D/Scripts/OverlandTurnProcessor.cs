@@ -79,6 +79,8 @@ public class OverlandTurnProcessor {
 					// if we LAND on a camp, we're done.
 					if (wap.waypointType == ewaypointType.waypointCamp && index + tileModel.currentNode != startIndex){
 						movementHalted = true;
+						// display further waypoints
+						revealWaypointsAfterCamp(index + tileModel.currentNode, tileModel);
 					}
 
 					// if we LAND on an encounter, we're done.
@@ -88,7 +90,7 @@ public class OverlandTurnProcessor {
 
 					// if we LAND on an icon that we don't have in hand, we're done
 					if (wap.waypointType == ewaypointType.waypointOptionalEncounter && index + tileModel.currentNode != startIndex){
-						movementHalted = true;
+						//movementHalted = true;
 					}
 
 					// icon waypoint
@@ -117,6 +119,37 @@ public class OverlandTurnProcessor {
 		tileModel.currentNode = finalIndex;
 		// reset crew progress
 		theCrew.progress = 0;
+	}
+
+
+	private void revealWaypointsAfterCamp(int campIndex, OverlandTileModel tileModel){
+		bool foundNext = false;
+		int nextWaypoint = tileModel.waypoints.Count - 1;
+
+		for (int dex = campIndex + 1; dex < tileModel.waypoints.Count; dex++) {
+			// and stop at the next waypoint
+
+			if (!foundNext){	
+				OverlandWaypointModel wap = (OverlandWaypointModel)tileModel.waypoints[dex];
+
+				if (wap.waypointType == ewaypointType.waypointCamp){
+					nextWaypoint = dex;
+					foundNext = true;
+				}
+			}
+		}
+
+		Debug.Log(string.Format("checking dex{0} next{1}",campIndex,nextWaypoint));
+
+		for (int dex = campIndex; dex <= nextWaypoint; dex++) {
+
+			Debug.Log(string.Format("checking dex{0} next{1}",dex,nextWaypoint));
+
+			OverlandWaypointModel wap = (OverlandWaypointModel)tileModel.waypoints[dex];
+			
+			wap.beyondNextCamp = false;
+		}
+	
 	}
 
 

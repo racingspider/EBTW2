@@ -10,6 +10,7 @@ public class WaypointView : MonoBehaviour {
 
 	private bool previousReached = false;
 	private bool previousPassed = false;
+	private bool previousBeyondNextCamp = false;
 
 	public void drawBasedOnModel(){
 		SpriteRenderer renderer = transform.GetComponent<SpriteRenderer>();
@@ -38,9 +39,10 @@ public class WaypointView : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (previousPassed != model.passed || previousReached != model.reached) {
+		if (previousPassed != model.passed || previousReached != model.reached || previousBeyondNextCamp != model.beyondNextCamp) {
 			previousPassed = model.passed;
 			previousReached = model.reached;
+			previousBeyondNextCamp = model.beyondNextCamp;
 
 			SpriteRenderer renderer = transform.GetComponent<SpriteRenderer>();
 
@@ -52,6 +54,12 @@ public class WaypointView : MonoBehaviour {
 					// reached only = yellow
 					renderer.color = Color.yellow;
 				}
+			}
+
+			if (previousBeyondNextCamp){
+				renderer.enabled = false;
+			}else{
+				renderer.enabled = true;
 			}
 		}
 	}
