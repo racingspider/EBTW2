@@ -41,7 +41,7 @@ public class OverlandTileModel {
 				waypoint.iconRequirement = ewaypointType.waypointBlades;
 			}
 
-			if (index == 9){
+			if (index == 12){
 				waypoint.waypointType = ewaypointType.waypointEncounter;
 			}
 

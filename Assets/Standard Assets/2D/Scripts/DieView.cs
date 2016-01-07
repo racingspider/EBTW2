@@ -25,10 +25,10 @@ public class DieView : MonoBehaviour {
 
 	public DieView(){
 		// initialize the colors dictionary
-		backgroundColors.Add ((int)edieBaseType.series1, new Color(0.54F,0.56F,0.43F));
-		backgroundColors.Add ((int)edieBaseType.series2, new Color(0.56F,0.43F,0.43F));
-		backgroundColors.Add ((int)edieBaseType.captain, new Color(1.0F,0.5F,0.5F));
-		backgroundColors.Add ((int)edieBaseType.scout, new Color(0.44F,0.78F,0.21F));
+		backgroundColors.Add ((int)edieBaseType.series2, new Color(0.54F,0.56F,0.43F));
+		backgroundColors.Add ((int)edieBaseType.scout, new Color(0.56F,0.43F,0.43F));
+		backgroundColors.Add ((int)edieBaseType.captain, Color.yellow); //new Color(1.0F,0.5F,0.5F));
+		backgroundColors.Add ((int)edieBaseType.series1, new Color(0.54F,0.78F,0.43F));
 		backgroundColors.Add ((int)edieBaseType.adventurer, Color.magenta);
 	}
 		

@@ -11,8 +11,8 @@ public class OverlandTileView : MonoBehaviour {
 	void Start () {
 		// generate all of the prefabs for the waypoints
 
-		float xOff = -4.2F;
-		float yOff = 1.5F;
+		float xOff = -3.2F;
+		float yOff = 0.0F;
 		foreach (OverlandWaypointModel waypoint in tileModel.waypoints) {
 			GameObject newObject = (GameObject)Instantiate(Resources.Load("Prefabs/WaypointView"));
 			WaypointView objWv = newObject.GetComponent<WaypointView>();
@@ -23,7 +23,7 @@ public class OverlandTileView : MonoBehaviour {
 			newObject.transform.parent = this.transform;
 			newObject.transform.localPosition = new Vector2(xOff,yOff);
 			xOff += 0.4F;
-			yOff -= 0.2F;
+			yOff -= 0.08F;
 
 		}
 

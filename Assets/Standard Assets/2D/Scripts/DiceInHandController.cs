@@ -167,9 +167,9 @@ public class DiceInHandController : MonoBehaviour {
 		// create a simple test set of dice
 		dice.Add(DieFactory.createSeries1());
 		dice.Add(DieFactory.createSeries1());
+		dice.Add(DieFactory.createSeries1());
 		dice.Add(DieFactory.createSeries2());
 		dice.Add(DieFactory.createScout());
-		dice.Add(DieFactory.createSeries1());
 		dice.Add(DieFactory.createCaptain());
 
 		GameObject dobject = transform.Find("Die1").gameObject;
