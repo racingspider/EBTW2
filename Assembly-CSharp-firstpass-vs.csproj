@@ -52,6 +52,7 @@
      <Compile Include="Assets\Standard Assets\2D\Scripts\DiceInHandController.cs" />
      <Compile Include="Assets\Standard Assets\2D\Scripts\DieModel.cs" />
      <Compile Include="Assets\Standard Assets\2D\Scripts\DieView.cs" />
+     <Compile Include="Assets\Standard Assets\2D\Scripts\EncampButton.cs" />
      <Compile Include="Assets\Standard Assets\2D\Scripts\EnumsList.cs" />
      <Compile Include="Assets\Standard Assets\2D\Scripts\GameModel.cs" />
      <Compile Include="Assets\Standard Assets\2D\Scripts\HealthTrackEntry.cs" />
@@ -62,6 +63,8 @@
      <Compile Include="Assets\Standard Assets\2D\Scripts\OverlandTileModel.cs" />
      <Compile Include="Assets\Standard Assets\2D\Scripts\OverlandTileView.cs" />
      <Compile Include="Assets\Standard Assets\2D\Scripts\OverlandTurnProcessor.cs" />
+     <Compile Include="Assets\Standard Assets\2D\Scripts\ProvisionPackController.cs" />
+     <Compile Include="Assets\Standard Assets\2D\Scripts\ProvisionsViewController.cs" />
      <Compile Include="Assets\Standard Assets\2D\Scripts\WaypointView.cs" />
      <Compile Include="Assets\Standard Assets\Cameras\Scripts\AbstractTargetFollower.cs" />
      <Compile Include="Assets\Standard Assets\Cameras\Scripts\AutoCam.cs" />

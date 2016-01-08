@@ -73,7 +73,7 @@ public class OverlandTurnProcessor {
 
 					OverlandWaypointModel wap = (OverlandWaypointModel)tileModel.waypoints[index + tileModel.currentNode];
 
-					OverlandWaypointModel startNode = (OverlandWaypointModel)tileModel.waypoints[startIndex];
+					//OverlandWaypointModel startNode = (OverlandWaypointModel)tileModel.waypoints[startIndex];
 					// verify we have the prerequisite for the next
 		
 					// if we LAND on a camp, we're done.
@@ -142,8 +142,6 @@ public class OverlandTurnProcessor {
 		Debug.Log(string.Format("checking dex{0} next{1}",campIndex,nextWaypoint));
 
 		for (int dex = campIndex; dex <= nextWaypoint; dex++) {
-
-			Debug.Log(string.Format("checking dex{0} next{1}",dex,nextWaypoint));
 
 			OverlandWaypointModel wap = (OverlandWaypointModel)tileModel.waypoints[dex];
 			

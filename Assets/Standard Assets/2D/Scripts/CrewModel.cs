@@ -3,7 +3,7 @@ using System.Collections;
 
 public class CrewModel {
 
-	public int provisions = 12;
+	public int _provisions = 8;
 	public ArrayList healthTrack = new ArrayList();
 	public int healthTrackSize = 8; // fatigue + injury maximum
 
@@ -13,7 +13,14 @@ public class CrewModel {
 
 	public int disasters = 0;
 
+	// we can calculate it from inventory
+	public int provisions{
+		get{
+			return _provisions;
+		}set{
+			_provisions = value;
+		}
 
-
+	}
 
 }

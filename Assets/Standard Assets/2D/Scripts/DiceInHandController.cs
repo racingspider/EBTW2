@@ -18,12 +18,14 @@ public class DiceInHandController : MonoBehaviour {
 	// here are the actual dice
 	private ArrayList dice= new ArrayList();
 
-	private int numberDiceRolled = 6;
-	private int seriesRollNumber = 0; // 0 = initial roll, each reroll adds one
+	private int numberDiceRolled = 6; // for now, always roll 6 dice
+	private int seriesRollNumber = 0; // 1 = initial roll, each reroll adds one
+	private int numberDiceSelected = 0; 
 
 	// not sure this belongs here...
 	public OverlandTurnProcessor turnProcessor = new OverlandTurnProcessor ();
 
+	public bool enforceRollingRules = false;
 
 	// passed in from OverlandGameMain
 	public CrewModel Crew{
@@ -47,11 +49,12 @@ public class DiceInHandController : MonoBehaviour {
 
 			// set current position to the correct lock slot?
 			selectedDice.Add(theDie);
+			numberDiceSelected++;
 
 		} else {
 			theDie.transform.localPosition = new Vector2(theDie.homeLocation.x, 0.0f);
 			selectedDice.Remove(theDie);
-
+			numberDiceSelected--;
 		}
 
 		// CHANGE ROLL BUTTON TO PROCESS ...
@@ -95,11 +98,6 @@ public class DiceInHandController : MonoBehaviour {
 
 			OverlandTileView tileView = FindObjectOfType<OverlandTileView>();
 
-
-			if (tileView){
-				Debug.Log("found tileview");
-			}
-
 			OverlandTurnProcessor turnProc = new OverlandTurnProcessor();
 			turnProc.processSeries(theCrew, selectedDice, tileView.tileModel);
 
@@ -112,11 +110,10 @@ public class DiceInHandController : MonoBehaviour {
 			selectedDice.Clear();
 			displayDice();
 		
-			// tell the health tracker to update
-			Debug.Log(this.transform.parent.name);
-
 			OverlandGameController GC = this.transform.parent.GetComponent<OverlandGameController>();
 			GC.updateHealthTracker();
+
+			seriesRollNumber = 0; // just processed
 		} 			
 
 		// we autoroll after resetting, we can change that later
@@ -135,8 +132,13 @@ public class DiceInHandController : MonoBehaviour {
 
 	public void rollDice(){
 
-		// if everything is selected, process and release
+		if (!canRollDice ()) {
+			return;
+		}
 
+		// if everything is selected, process and release
+		seriesRollNumber++;
+		numberDiceSelected = 0;
 
 		foreach (DieModel die in dice){
 
@@ -151,6 +153,34 @@ public class DiceInHandController : MonoBehaviour {
 		}
 
 		displayDice ();
+	}
+
+	private bool canRollDice(){
+		bool result = false;
+
+		if (!enforceRollingRules) {
+			result = true;
+		}
+
+		if (seriesRollNumber == 0) {
+			result = true;
+		} else if (seriesRollNumber == 1) {
+			//must select 3 dice.
+			if (numberDiceSelected >= 3){
+				result = true;
+			}
+
+		} else {
+			//must select at least once.
+			if (numberDiceSelected >= 1){
+				result = true;
+			}
+		}
+
+		Debug.Log (string.Format ("seriesRollNumber: {0}, numberDiceSelected: {1}, result: {2}", seriesRollNumber, numberDiceSelected, result.ToString()));
+
+
+		return result;
 	}
 
 	private void displayDice(){

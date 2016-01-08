@@ -27,6 +27,11 @@ public class OverlandGameController : MonoBehaviour {
 		dobject = transform.Find ("HealthTracker").gameObject;
 		HealthTracker hcontroller = dobject.GetComponent<HealthTracker> ();
 		hcontroller.Crew = theCrew;
+
+		// find the provisions control and set the crew
+		dobject = transform.Find ("ProvisionsController").gameObject;
+		ProvisionsViewController provs = dobject.GetComponent<ProvisionsViewController> ();
+		provs.theCrew = theCrew;
 	}
 	
 	// Update is called once per frame
