@@ -96,7 +96,7 @@ public 	static DieModel createSeries2(){
 		model.iconsOnfaces.Add(edieIcon.camp);
 		model.iconsOnfaces.Add(edieIcon.wayward);
 		model.iconsOnfaces.Add(edieIcon.disaster);
-		model.iconsOnfaces.Add (edieIcon.boots); // second boot icon on first die facing
+		//model.iconsOnfaces.Add (edieIcon.boots); // second boot icon on first die facing
 		model.dieType = edieBaseType.series2;
 		model.iconSource = ArrayList.Repeat (1, 6);
 		return model;

@@ -65,6 +65,8 @@ public class OverlandTurnProcessor {
 
 		bool movementHalted = false;
 
+
+
 		// process progress total
 		if (theCrew.progress > 0) {
 			for (int index = 0; index <= theCrew.progress; index++){
@@ -180,6 +182,8 @@ public class OverlandTurnProcessor {
 			currentEffects = dieIconEffects[(int)theIcon];
 			foreach (string effect in currentEffects){
 
+				enforceTimeCosts(theCrew, effect);
+
 				switch (effect){
 				case "none":
 					break;
@@ -233,7 +237,10 @@ public class OverlandTurnProcessor {
 
 		theCrew.currentTimeSegment += tc;
 
-		Debug.Log(string.Format("Time Passed: {0}",theCrew.currentTimeSegment));
+		if (theCrew.currentTimeSegment > 9) {
+			theCrew.currentTimeSegment = 0;
+		}
+
 	}
 
 

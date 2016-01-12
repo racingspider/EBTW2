@@ -32,6 +32,12 @@ public class OverlandGameController : MonoBehaviour {
 		dobject = transform.Find ("ProvisionsController").gameObject;
 		ProvisionsViewController provs = dobject.GetComponent<ProvisionsViewController> ();
 		provs.theCrew = theCrew;
+
+		// time tracker
+		dobject = transform.Find ("TimeDisplay").gameObject;
+		TimeDisplayController times = dobject.GetComponent<TimeDisplayController> ();
+		times.theCrew = theCrew;
+
 	}
 	
 	// Update is called once per frame
