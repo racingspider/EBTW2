@@ -19,7 +19,9 @@ public class DiceInHandController : MonoBehaviour {
 	private ArrayList dice= new ArrayList();
 
 	private int numberDiceRolled = 6; // for now, always roll 6 dice
-	private int seriesRollNumber = 0; // 1 = initial roll, each reroll adds one
+	private int previousDiceRolled = -1;
+
+	private int seriesRollNumber = 1; // 1 = initial roll, each reroll adds one
 	private int numberDiceSelected = 0; 
 
 	// not sure this belongs here...
@@ -41,6 +43,23 @@ public class DiceInHandController : MonoBehaviour {
 	public DiceInHandController(){
 
 
+	}
+
+	public void selectNumberOfDice(int number){
+
+		numberDiceRolled = number;
+
+		// send dice home, up to number of selected dice
+		Debug.Log (string.Format ("number dice rolled {0}", numberDiceRolled));
+		resetDieLocations (numberDiceRolled);
+
+		// hide the selection buttons
+		for (int index = 3; index < 7; index++) {
+			string childName = string.Format("rollButton{0}", index);
+			GameObject dobject = this.transform.FindChild (childName).gameObject;
+			DieRollNumber droll = dobject.GetComponent<DieRollNumber> ();
+			droll.transform.position = new Vector2 (300, 300);
+		}
 	}
 
 	public void selectUnselectDie(DieView theDie){
@@ -101,12 +120,14 @@ public class DiceInHandController : MonoBehaviour {
 			OverlandTurnProcessor turnProc = new OverlandTurnProcessor();
 			turnProc.processSeries(theCrew, selectedDice, tileView.tileModel);
 
-			// then reset
+			// then reset and banish until number of dice are selected
 			foreach (DieModel die in dice){
 				die.dieState = edieState.inHand;
-
 			}
-			resetDieLocations();
+
+			banishDiceInHand();
+			resetDieNumberLocations();
+			//resetDieLocations();
 			selectedDice.Clear();
 			displayDice();
 		
@@ -120,13 +141,59 @@ public class DiceInHandController : MonoBehaviour {
 		rollDice ();
 	}
 
-	private void resetDieLocations(){
+	private void resetDieNumberLocations(){
+		for (int index = 3; index < 7; index++) {
+			string childName = string.Format("rollButton{0}", index);
+			GameObject dobject = this.transform.FindChild (childName).gameObject;
+			DieRollNumber droll = dobject.GetComponent<DieRollNumber> ();
+			droll.transform.localPosition = new Vector2 (droll.homeX, droll.homeY);
+		}
+	}
+
+
+	private void banishDiceInHand(){
+		die1.transform.localPosition = new Vector2 (300, 300);
+		die2.transform.localPosition = new Vector2 (300, 300);
+		die3.transform.localPosition = new Vector2 (300, 300);
+		die4.transform.localPosition = new Vector2 (300, 300);
+		die5.transform.localPosition = new Vector2 (300, 300);
+		die6.transform.localPosition = new Vector2 (300, 300);
+	}
+
+
+
+	private void resetDieLocations(int numberRolled){
 		die1.transform.localPosition = new Vector2 (die1.homeLocation.x, die1.homeLocation.y);
 		die2.transform.localPosition = new Vector2 (die2.homeLocation.x, die2.homeLocation.y);
 		die3.transform.localPosition = new Vector2 (die3.homeLocation.x, die3.homeLocation.y);
-		die4.transform.localPosition = new Vector2 (die4.homeLocation.x, die4.homeLocation.y);
-		die5.transform.localPosition = new Vector2 (die5.homeLocation.x, die5.homeLocation.y);
-		die6.transform.localPosition = new Vector2 (die6.homeLocation.x, die6.homeLocation.y);
+
+		switch (numberRolled) {
+		case 3:
+			die4.transform.localPosition = new Vector2 (300,300);
+			die5.transform.localPosition = new Vector2 (300,300);
+			die6.transform.localPosition = new Vector2 (300,300);
+			break;
+
+		case 4:
+			die4.transform.localPosition = new Vector2 (die4.homeLocation.x, die4.homeLocation.y);
+			die5.transform.localPosition = new Vector2 (300,300);
+			die6.transform.localPosition = new Vector2 (300,300);
+			break;
+		case 5:
+			die4.transform.localPosition = new Vector2 (die4.homeLocation.x, die4.homeLocation.y);
+			die5.transform.localPosition = new Vector2 (die5.homeLocation.x, die5.homeLocation.y);
+			die6.transform.localPosition = new Vector2 (300,300);
+			break;
+		case 6:
+			die4.transform.localPosition = new Vector2 (die4.homeLocation.x, die4.homeLocation.y);
+			die5.transform.localPosition = new Vector2 (die5.homeLocation.x, die5.homeLocation.y);
+			die6.transform.localPosition = new Vector2 (die6.homeLocation.x, die6.homeLocation.y);
+			break;
+		default:
+			break;
+		}
+
+
 
 	}
 
@@ -235,10 +302,19 @@ public class DiceInHandController : MonoBehaviour {
 		lockSlots.Add (transform.Find ("LockSlot5").gameObject);
 		lockSlots.Add (transform.Find ("LockSlot6").gameObject);
 
+
+		GameObject dfed = transform.Find ("Die1").gameObject;
+		SpriteRenderer rend = dfed.GetComponent<SpriteRenderer> ();
+		rend.enabled = false;
+
+
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
-	
+		if (previousDiceRolled != numberDiceRolled) {
+
+		}
 	}
 }
