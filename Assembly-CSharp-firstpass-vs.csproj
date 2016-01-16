@@ -67,6 +67,7 @@
      <Compile Include="Assets\Standard Assets\2D\Scripts\OverlandTurnProcessor.cs" />
      <Compile Include="Assets\Standard Assets\2D\Scripts\ProvisionPackController.cs" />
      <Compile Include="Assets\Standard Assets\2D\Scripts\ProvisionsViewController.cs" />
+     <Compile Include="Assets\Standard Assets\2D\Scripts\RollsRemainingController.cs" />
      <Compile Include="Assets\Standard Assets\2D\Scripts\TimeDisplayController.cs" />
      <Compile Include="Assets\Standard Assets\2D\Scripts\WaypointView.cs" />
      <Compile Include="Assets\Standard Assets\Cameras\Scripts\AbstractTargetFollower.cs" />

@@ -24,8 +24,11 @@ public class DiceInHandController : MonoBehaviour {
 	private int seriesRollNumber = 1; // 1 = initial roll, each reroll adds one
 	private int numberDiceSelected = 0; 
 
+	public int NumberOfRerolls = 3;
+
 	// not sure this belongs here...
 	public OverlandTurnProcessor turnProcessor = new OverlandTurnProcessor ();
+
 
 	public bool enforceRollingRules = false;
 
@@ -53,12 +56,30 @@ public class DiceInHandController : MonoBehaviour {
 		Debug.Log (string.Format ("number dice rolled {0}", numberDiceRolled));
 		resetDieLocations (numberDiceRolled);
 
+		resetNumberOfRollsRemaining ();
 		// hide the selection buttons
 		for (int index = 3; index < 7; index++) {
 			string childName = string.Format("rollButton{0}", index);
 			GameObject dobject = this.transform.FindChild (childName).gameObject;
 			DieRollNumber droll = dobject.GetComponent<DieRollNumber> ();
 			droll.transform.position = new Vector2 (300, 300);
+		}
+	}
+
+
+	private void resetNumberOfRollsRemaining(){
+		GameObject numberRollsDisplay = this.transform.FindChild("RollsRemaining").gameObject;
+		RollsRemainingController rollsDisplay = numberRollsDisplay.GetComponent<RollsRemainingController>();
+		rollsDisplay.rollsRemaining = NumberOfRerolls;
+	}
+
+	private void reduceNumberOfRollsRemaining(){
+		GameObject numberRollsDisplay = this.transform.FindChild("RollsRemaining").gameObject;
+		RollsRemainingController rollsDisplay = numberRollsDisplay.GetComponent<RollsRemainingController>();
+		if (rollsDisplay.rollsRemaining == 1) {
+			rollsDisplay.rollsRemaining = 0;
+		} else {
+			rollsDisplay.rollsRemaining--;
 		}
 	}
 
@@ -114,11 +135,15 @@ public class DiceInHandController : MonoBehaviour {
 
 		if (checkToResetAllDice ()) {
 			// process!!
-
 			OverlandTileView tileView = FindObjectOfType<OverlandTileView>();
 
 			OverlandTurnProcessor turnProc = new OverlandTurnProcessor();
 			turnProc.processSeries(theCrew, selectedDice, tileView.tileModel);
+
+			// reset the number of rolls remaining
+			GameObject numberRollsDisplay = this.transform.FindChild("RollsRemaining").gameObject;
+			RollsRemainingController rollsDisplay = numberRollsDisplay.GetComponent<RollsRemainingController>();
+			rollsDisplay.rollsRemaining = 3;
 
 			// then reset and banish until number of dice are selected
 			foreach (DieModel die in dice){
@@ -127,7 +152,6 @@ public class DiceInHandController : MonoBehaviour {
 
 			banishDiceInHand();
 			resetDieNumberLocations();
-			//resetDieLocations();
 			selectedDice.Clear();
 			displayDice();
 		
@@ -135,6 +159,8 @@ public class DiceInHandController : MonoBehaviour {
 			GC.updateHealthTracker();
 
 			seriesRollNumber = 0; // just processed
+
+
 		} 			
 
 		// we autoroll after resetting, we can change that later
@@ -202,6 +228,8 @@ public class DiceInHandController : MonoBehaviour {
 		if (!canRollDice ()) {
 			return;
 		}
+
+		reduceNumberOfRollsRemaining ();
 
 		// if everything is selected, process and release
 		seriesRollNumber++;
