@@ -53,7 +53,6 @@ public class DiceInHandController : MonoBehaviour {
 		numberDiceRolled = number;
 
 		// send dice home, up to number of selected dice
-		Debug.Log (string.Format ("number dice rolled {0}", numberDiceRolled));
 		resetDieLocations (numberDiceRolled);
 
 		resetNumberOfRollsRemaining ();
@@ -64,6 +63,8 @@ public class DiceInHandController : MonoBehaviour {
 			DieRollNumber droll = dobject.GetComponent<DieRollNumber> ();
 			droll.transform.position = new Vector2 (300, 300);
 		}
+
+		checkShowProcessButton ();
 	}
 
 
@@ -85,6 +86,8 @@ public class DiceInHandController : MonoBehaviour {
 
 	public void selectUnselectDie(DieView theDie){
 
+		Debug.Log ("selectUnselectDie");
+
 		if (!selectedDice.Contains (theDie)) {
 
 			// set current position to the correct lock slot?
@@ -97,11 +100,26 @@ public class DiceInHandController : MonoBehaviour {
 			numberDiceSelected--;
 		}
 
+		// if all the dice are selected or locked, turn the roll button into a process button
+		checkShowProcessButton ();
+
 		// CHANGE ROLL BUTTON TO PROCESS ...
 		// if selected + locked = number of dice in series, change icon to process, otherwise, roll button 
 
 		displayLockedAndSelectedDice ();
 	}
+
+
+	private void checkShowProcessButton(){
+		// if all the dice are selected or locked, turn the roll button into a process button
+		if (checkToResetAllDice ()) {
+			showProcessButton(true);
+		} else {
+			showProcessButton(false);
+		}
+		
+	}
+
 
 
 	private void displayLockedAndSelectedDice(){
@@ -125,14 +143,28 @@ public class DiceInHandController : MonoBehaviour {
 		}
 
 		if (lockedOrSelected == numberDiceRolled) {
+			Debug.Log(string.Format("locked Or sel {0}, Num rolled {1}",lockedOrSelected, numberDiceRolled));
 			result = true;
 		}
 
 		return result;
 	}
 
+	private void showProcessButton(bool show){
+
+		GameObject rollButton = this.transform.FindChild ("RollButton").gameObject;
+		SpriteRenderer rollRenderer = rollButton.GetComponent<SpriteRenderer> ();
+
+		if (show) {
+			rollRenderer.sprite = Resources.Load ("Sprites/UIElements/processButton", typeof(Sprite)) as Sprite;
+		} else {
+			rollRenderer.sprite = Resources.Load ("Sprites/UIElements/rollButton", typeof(Sprite)) as Sprite;
+		}
+	}
+
 	public void onTouch(){
 
+				
 		if (checkToResetAllDice ()) {
 			// process!!
 			OverlandTileView tileView = FindObjectOfType<OverlandTileView>();

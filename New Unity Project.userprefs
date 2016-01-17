@@ -1,16 +1,16 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Standard Assets/2D/Scripts/DiceInHandController.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Standard Assets/2D/Scripts/OverlandTurnProcessor.cs">
     <Files>
       <File FileName="Assets/Standard Assets/2D/Scripts/CampActionsController.cs" Line="1" Column="1" />
       <File FileName="Assets/Standard Assets/2D/Scripts/OverlandTurnProcessor.cs" Line="1" Column="1" />
-      <File FileName="Assets/Standard Assets/2D/Scripts/DiceInHandController.cs" Line="163" Column="2" />
+      <File FileName="Assets/Standard Assets/2D/Scripts/DiceInHandController.cs" Line="69" Column="1" />
       <File FileName="Assets/Standard Assets/2D/Scripts/EnumsList.cs" Line="1" Column="1" />
       <File FileName="Assets/Standard Assets/2D/Scripts/OverlandTileView.cs" Line="1" Column="1" />
       <File FileName="Assets/Standard Assets/2D/Scripts/HealthTracker.cs" Line="1" Column="1" />
       <File FileName="Assets/Standard Assets/2D/Scripts/HealthTrackEntry.cs" Line="1" Column="1" />
       <File FileName="Assets/Standard Assets/2D/Scripts/OverlandGameController.cs" Line="1" Column="1" />
-      <File FileName="Assets/Standard Assets/2D/Scripts/DieView.cs" Line="1" Column="1" />
+      <File FileName="Assets/Standard Assets/2D/Scripts/DieView.cs" Line="39" Column="58" />
       <File FileName="Assets/Standard Assets/2D/Scripts/DieModel.cs" Line="1" Column="1" />
       <File FileName="Assets/Standard Assets/2D/Scripts/WaypointView.cs" Line="1" Column="1" />
       <File FileName="Assets/Standard Assets/2D/Scripts/ProvisionsViewController.cs" Line="1" Column="1" />
